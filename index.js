@@ -71,14 +71,22 @@ hours = h2 - h1
    return {years,months,days,hours,minutes,seconds}
 }
 
-goButton.addEventListener("click", async ()=>{
-const output = document.querySelector(".output")
- const time = await getDate()
- console.log(time)
-output.innerHTML = `Your Age :: <label>Years ${time.years}</label>
-<label>Month: ${time.months}</label>
-<label>Day: ${time.days}</label>
-<label>Hours: ${time.hours}</label>
-<label>Minutes: ${time.minutes}</label>
-<label>Seconds: ${time.seconds}</label>`
-});
+
+const updateTime= ()=>{
+  const output = document.querySelector(".output")
+ 
+setInterval(async ()=>{
+  const time = await getDate()
+  output.innerHTML = `Your Age :: <label>Years ${time.years}</label>
+  <label>Month: ${time.months}</label>
+  <label>Day: ${time.days}</label>
+  <label>Hours: ${time.hours}</label>
+  <label>Minutes: ${time.minutes}</label>
+  <label>Seconds: ${time.seconds}</label>`
+},1000)
+
+}
+goButton.addEventListener("click", ()=>{
+  updateTime()
+ 
+ })
