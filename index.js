@@ -1,6 +1,6 @@
 const goButton = document.getElementById("go");
 const dayMs = 1000 * 60 * 60 * 24;
-function getDate() {
+async function getDate() {
   let years, months, days, hours, minutes, seconds;
   let y1, y2, mn1, mn2, d1, d2, h1, h2, mu1, mu2, s1, s2;
   const dateNow = new Date();
@@ -18,8 +18,6 @@ function getDate() {
   h2 = dateNow.getHours();
   mu2 = dateNow.getMinutes();
   s2 = dateNow.getSeconds();
-  console.log("day 1",d1);
-  console.log("day 2",d2);
   years = y2 - y1;
   if (mn2 >= mn1) {
     months = mn2 - mn1;
@@ -29,7 +27,6 @@ function getDate() {
   }
   if (d2 >= d1) {
     days = d2 - d1;
-    console.log("days",days)
   } else {
     switch (mn1) {
       case 0:
@@ -53,8 +50,35 @@ function getDate() {
     }
 months--
   }
-  console.log(`your are ${years} years and ${months} months and ${days} old`);
+  if (h2 >= h1 ){
+hours = h2 - h1
+  }else{
+    hours = 24 - h1 + d2;
+    days--
+  }
+  if (mu2 >= mu1 ){
+    minutes = mu2 - mu1
+      }else{
+        minutes = 60 - mu1 + mu2;
+        hours--
+      }
+      if (s2 >= s1 ){
+        seconds = s2 - s1
+          }else{
+            hours = 60 - s1 + s2;
+            minutes--
+          }
+   return {years,months,days,hours,minutes,seconds}
 }
 
-
-goButton.addEventListener("click", getDate);
+goButton.addEventListener("click", async ()=>{
+const output = document.querySelector(".output")
+ const time = await getDate()
+ console.log(time)
+output.innerHTML = `Your Age :: <label>Years ${time.years}</label>
+<label>Month: ${time.months}</label>
+<label>Day: ${time.days}</label>
+<label>Hours: ${time.hours}</label>
+<label>Minutes: ${time.minutes}</label>
+<label>Seconds: ${time.seconds}</label>`
+});
